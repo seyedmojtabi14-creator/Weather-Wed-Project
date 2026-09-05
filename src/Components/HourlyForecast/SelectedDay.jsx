@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { DataContext } from "../DataContext";
 
+
 export default function SelectedDay() {
   const { weatherData, modeSwitch, selectedDay, setSelectedDay , } =
     useContext(DataContext);

@@ -1,10 +1,16 @@
 import { useContext } from "react";
-import { DataContext } from "../DataContext";
 import WeatherIcon from "../WeatherIcon";
+import { DataContext } from "../DataContext";
 
 export default function CurrentWeather() {
-  const { weatherData, locationData, searchName, modeSwitch , formatTemperature , units} =
-    useContext(DataContext);
+  const {
+    weatherData,
+    locationData,
+    searchName,
+    modeSwitch,
+    formatTemperature,
+    units,
+  } = useContext(DataContext);
 
   const time = weatherData?.current?.time;
 
@@ -21,8 +27,6 @@ export default function CurrentWeather() {
     <section
       className={`relative h-[270px] overflow-hidden rounded-3xl ${modeSwitch ? "relative h-[270px] overflow-hidden rounded-3xl border border-[#C8DEC9] bg-gradient-to-br from-[#2F7D46] via-[#286B3C] to-[#1F5A32] p-7 shadow-sm" : "bg-gradient-to-br from-[#5146A8] via-[#40358F] to-[#2D255F] p-7"} `}
     >
-      {/* <!-- Decorative circles --> */}
-
       <div
         className={
           modeSwitch
@@ -39,8 +43,6 @@ export default function CurrentWeather() {
       ></div>
 
       <div className=""></div>
-
-      {/* <!-- Decorative stars --> */}
 
       <span
         className={
@@ -101,7 +103,10 @@ export default function CurrentWeather() {
                 : "text-2xl font-bold md:text-3xl"
             }
           >
-            {locationData?.results?.[0]?.country} , {searchName}
+            {locationData?.results?.[0]?.country === searchName
+              ? searchName
+              : `${locationData?.results?.[0]?.country} , ${searchName}`}
+            {/* {locationData?.results?.[0]?.country} , {searchName} */}
           </h3>
 
           <p
@@ -115,15 +120,16 @@ export default function CurrentWeather() {
 
         <div className="flex items-center gap-5">
           <WeatherIcon
-            code={weatherData.current.weather_code}
+            code={weatherData?.current?.weather_code}
+            isDay={weatherData?.current?.is_day}
             size={100}
           />
 
           <div
             className={`text-7xl font-semibold ${modeSwitch && "text-white"}`}
           >
-            {formatTemperature(weatherData?.current?.temperature_2m,units)}{units === 'C' ? '°' : '°ᶠ'}
-            {/* {weatherData?.current?.temperature_2m}° */}
+            {formatTemperature(weatherData?.current?.temperature_2m, units)}
+            {units === "C" ? "°" : "°ᶠ"}
           </div>
         </div>
       </div>

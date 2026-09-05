@@ -1,7 +1,8 @@
 import { useContext } from "react";
 import HourlyForecastCard from "./HourlyForecastCard";
-import { DataContext } from "../DataContext";
 import SelectedDay from "./SelectedDay";
+import { DataContext } from "../DataContext";
+
 
 export default function HourlyForecast() {
   const { weatherData, modeSwitch, selectedDay } = useContext(DataContext);

@@ -1,6 +1,7 @@
 import { useContext } from "react";
-import { DataContext } from "../DataContext";
 import WeatherIcon from "../WeatherIcon";
+import { DataContext } from "../DataContext";
+
 
 export default function ForecastDailyCard({ index, data }) {
   const { weatherData, modeSwitch, formatTemperature, units } = useContext(DataContext);

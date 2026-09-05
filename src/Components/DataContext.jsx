@@ -1,4 +1,4 @@
-import { createContext, use, useState } from "react";
+import { createContext, useState } from "react";
 
 export let DataContext = createContext();
 
@@ -7,23 +7,18 @@ export function AppDataProvider({ children }) {
   const [units, setUnits] = useState("C");
   const [namePlace, setNamePlace] = useState("");
   const [searchName, setSearchName] = useState(() => {
-    try {
-      const values = JSON.parse(localStorage.getItem("city") || "[]");
-      return Array.isArray(values) && values.length > 0
-        ? values[values.length - 1]
-        : "London";
-    } catch {
-      return "London";
-    }
+    const cities = JSON.parse(localStorage.getItem("city")) || [];
+    return cities.length > 0 ? cities[cities.length - 1] : "London";
   });
   const [weatherData, setWeatherData] = useState(null);
   const [locationData, setLocationData] = useState(null);
   const [modeSwitch, setModeSwitch] = useState(false);
   const [selectedDay, setSelectedDay] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [cities, setCities] = useState(() => {
-    return JSON.parse(localStorage.getItem("city") || "[]");
-  });
+  const [cities, setCities] = useState(
+    JSON.parse(localStorage.getItem("city")) || [],
+  );
+  const [showCities, setShowCities] = useState(false);
 
   const selectedWeather = {
     date: weatherData?.daily?.time?.[selectedDay],
@@ -36,7 +31,6 @@ export function AppDataProvider({ children }) {
   // فیلتر کردن ساعات
   const hourlyIndices = weatherData?.hourly?.time
     ?.map((time, index) => {
-      // اگر تاریخ این ساعت با تاریخ روز انتخاب شده یکی بود، ایندکس رو برگردون
       if (time.startsWith(selectedDate)) {
         return index;
       }
@@ -81,6 +75,8 @@ export function AppDataProvider({ children }) {
         setLoading,
         cities,
         setCities,
+        showCities,
+        setShowCities,
       }}
     >
       {children}

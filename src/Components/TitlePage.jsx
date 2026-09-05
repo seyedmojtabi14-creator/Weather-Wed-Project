@@ -16,8 +16,14 @@ export default function TitlePage() {
     locationData,
     modeSwitch,
     cities,
+    showCities,
+    setShowCities,
   } = useContext(DataContext);
   const { data, location } = useFetch(searchName);
+
+  const filteredCities = cities.filter((city) =>
+    city.toLowerCase().includes(namePlace.trim().toLowerCase()),
+  );
 
   useEffect(() => {
     console.log(data);
@@ -52,6 +58,8 @@ export default function TitlePage() {
 
             <input
               value={namePlace}
+              onFocus={() => setShowCities(true)}
+              onBlur={() => setShowCities(false)}
               onChange={(e) => setNamePlace(e.target.value)}
               type="text"
               placeholder="Search for a place..."
@@ -61,15 +69,37 @@ export default function TitlePage() {
                   : "h-14 w-full rounded-xl bg-[#292944] pl-14 pr-5 text-white outline-none placeholder:text-gray-300 focus:ring-2 focus:ring-indigo-500"
               }
             />
-            {cities.map((city, index) => {
-              <button
-                key={index}
-                className="rounded-lg px-4 py-2 text-sm transition"
+
+            {showCities && filteredCities.length > 0 && (
+              <div
+                className={
+                  modeSwitch
+                    ? "absolute left-0 right-0 top-[62px] z-50 overflow-hidden rounded-xl border border-[#D8EBDD] bg-white shadow-lg"
+                    : "absolute left-0 right-0 top-[62px] z-50 overflow-hidden rounded-xl bg-[#292944] shadow-lg"
+                }
               >
-                {city}
-              </button>;
-            })}
+                {filteredCities.map((city, index) => (
+                  <div
+                    key={index}
+                    onMouseDown={() => {
+                      setNamePlace(city);
+                      setSearchName(city);
+                      setShowCities(false);
+                    }}
+                    className={
+                      modeSwitch
+                        ? "text-1xl cursor-pointer px-5 py-3 text-[#17251B] hover:bg-[#E7F3E9]"
+                        : "cursor-pointer px-5 py-3 text-white hover:bg-[#34344f]"
+                    }
+                  >
+                    {city}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
+
+          <div></div>
 
           <button
             className={
@@ -78,16 +108,24 @@ export default function TitlePage() {
                 : "h-14 rounded-xl bg-[#4d5edb] px-7 font-medium transition hover:bg-[#5b6ce8]"
             }
             onClick={() => {
-              namePlace.trim() && setSearchName(namePlace);
+              if (namePlace.trim()) {
+                setSearchName(namePlace);
 
-              if (namePlace.trim() !== "") {
-                const values = JSON.parse(localStorage.getItem("city") || "[]");
+                const indexNamePlace = cities.indexOf(namePlace);
 
-                if (!values.includes(namePlace)) {
-                  values.push(namePlace);
-
-                  localStorage.setItem("city", JSON.stringify(values));
+                if (indexNamePlace !== -1) {
+                  cities.splice(indexNamePlace, 1);
                 }
+
+                if (cities.length > 4) {
+                  cities.splice(0, 1);
+                }
+
+                cities.push(namePlace);
+
+                localStorage.setItem("city", JSON.stringify(cities));
+
+                setNamePlace("");
               }
             }}
           >
