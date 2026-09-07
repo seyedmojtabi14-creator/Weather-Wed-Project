@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import TitlePage from "./TitlePage";
 import { Sun, Moon } from "lucide-react";
-import { DataContext } from "./DataContext";
+import { DataContext } from  "../context/DataContext";
 
 export default function Header() {
   let { showUnits, setShowUnits, modeSwitch, setModeSwitch, units, setUnits } =

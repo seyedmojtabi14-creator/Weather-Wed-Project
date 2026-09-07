@@ -4,7 +4,7 @@ import ForecastDetails from "./ForecastDaily/ForecastDaily";
 import HourlyForecast from "./HourlyForecast/HourlyForecast";
 import WeatherDetails from "./WeatherDetails/WeatherDetails";
 import { helix } from "ldrs";
-import { DataContext } from "./DataContext";
+import { DataContext } from  "../context/DataContext";
 
 helix.register();
 

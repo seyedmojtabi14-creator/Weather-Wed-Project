@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import WeatherDashboard from "./WeatherDashboard";
-import { DataContext } from "./DataContext";
-import useFetch from "./useFetch";
+import { DataContext } from  "../context/DataContext";
+import useFetch from "../hooks/useFetch";
 import { MapPin } from "lucide-react";
 
 export default function TitlePage() {

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { DataContext } from "./DataContext";
+import { DataContext } from  "../context/DataContext";
 
 export default function useFetch(namePlace) {
   const { setWeatherData, setLocationData } = useContext(DataContext);

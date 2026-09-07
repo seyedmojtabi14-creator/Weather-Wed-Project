@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import WeatherIcon from "../WeatherIcon";
-import { DataContext } from "../DataContext";
+import { DataContext } from "../../context/DataContext";
 
 export default function CurrentWeather() {
   const {

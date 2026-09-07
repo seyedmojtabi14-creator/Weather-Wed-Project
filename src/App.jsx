@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import "./App.css";
-import { DataContext } from "./Components/DataContext";
+import { DataContext } from "./context/DataContext";
 import Header from "./Components/Header";
 
 function App() {
