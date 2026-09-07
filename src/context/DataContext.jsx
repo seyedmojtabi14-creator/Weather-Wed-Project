@@ -19,6 +19,7 @@ export function AppDataProvider({ children }) {
     JSON.parse(localStorage.getItem("city")) || [],
   );
   const [showCities, setShowCities] = useState(false);
+  const [isValid, setIsValid] = useState(true);
 
   const selectedWeather = {
     date: weatherData?.daily?.time?.[selectedDay],
@@ -77,6 +78,8 @@ export function AppDataProvider({ children }) {
         setCities,
         showCities,
         setShowCities,
+        isValid,
+        setIsValid,
       }}
     >
       {children}

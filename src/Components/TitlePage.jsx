@@ -18,6 +18,8 @@ export default function TitlePage() {
     cities,
     showCities,
     setShowCities,
+    isValid,
+    setIsValid,
   } = useContext(DataContext);
   const { data, location } = useFetch(searchName);
 
@@ -36,6 +38,28 @@ export default function TitlePage() {
       setLocationData(location);
     }
   }, [data, location]);
+
+  useEffect(() => {
+  if (!isValid || !searchName) return;
+
+  let cities = JSON.parse(localStorage.getItem("city")) || [];
+
+  const indexNamePlace = cities.indexOf(searchName);
+
+  if (indexNamePlace !== -1) {
+    cities.splice(indexNamePlace, 1);
+  }
+
+  if (cities.length >= 5) {
+    cities.splice(0, 1);
+  }
+
+  cities.push(searchName);
+
+  localStorage.setItem("city", JSON.stringify(cities));
+
+  setNamePlace("");
+}, [isValid, searchName]);
 
   return (
     <div>
@@ -109,23 +133,8 @@ export default function TitlePage() {
             }
             onClick={() => {
               if (namePlace.trim()) {
-                setSearchName(namePlace);
-
-                const indexNamePlace = cities.indexOf(namePlace);
-
-                if (indexNamePlace !== -1) {
-                  cities.splice(indexNamePlace, 1);
-                }
-
-                if (cities.length > 4) {
-                  cities.splice(0, 1);
-                }
-
-                cities.push(namePlace);
-
-                localStorage.setItem("city", JSON.stringify(cities));
-
-                setNamePlace("");
+                setIsValid(false);
+                setSearchName(namePlace.trim());
               }
             }}
           >

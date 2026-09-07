@@ -2,9 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import { DataContext } from  "../context/DataContext";
 
 export default function useFetch(namePlace) {
-  const { setWeatherData, setLocationData } = useContext(DataContext);
+  const { setWeatherData, setLocationData , setIsValid } = useContext(DataContext);
   const { loading,  setLoading } = useContext(DataContext);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (!namePlace) return;
@@ -33,9 +32,10 @@ export default function useFetch(namePlace) {
         const weatherData = await weatherResponse.json();
 
         setWeatherData(weatherData);
+        setIsValid(true)
         console.log(weatherData);
-      } catch (err) {
-        setError(err);
+      } catch {
+        setIsValid(false);
       } finally {
         setLoading(false);
       }
@@ -47,6 +47,5 @@ export default function useFetch(namePlace) {
   return {
     loading,
     location,
-    error,
   };
 }
