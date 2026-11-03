@@ -7,7 +7,7 @@ export default function ForecastDailyCard({ index, data }) {
   const { weatherData, modeSwitch, formatTemperature, units } = useContext(DataContext);
   return (
     <div
-      className={`flex min-h-[155px]  min-w-25 flex-col items-center justify-between rounded-xl ${modeSwitch ? "rounded-2xl border border-[#D8EBDD] bg-[#EEF6EF] p-5 shadow-sm" : "bg-[#292944]"} px-2 py-4`}
+      className={`flex min-h-[155px]  min-w-20 flex-col items-center justify-between rounded-xl ${modeSwitch ? "rounded-2xl border border-[#D8EBDD] bg-[#EEF6EF] p-5 shadow-sm" : "bg-[#292944]"} px-2 py-4`}
     >
       <p className="font-medium">
         {new Date(data).toLocaleDateString("en-US", {

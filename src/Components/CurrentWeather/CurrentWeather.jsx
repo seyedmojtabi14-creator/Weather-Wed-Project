@@ -17,7 +17,7 @@ export default function CurrentWeather() {
   const dataTime = new Date(time);
 
   const formattedDate = dataTime.toLocaleDateString("en-US", {
-    weekday: "long",
+    weekday: "short",
     month: "short",
     day: "numeric",
     year: "numeric",
@@ -97,20 +97,21 @@ export default function CurrentWeather() {
 
         <div>
           <h3
-            className={
+            className={`
+              text-1xl sm:text-2xl
               modeSwitch
-                ? "text-2xl font-bold text-white md:text-3xl"
-                : "text-2xl font-bold md:text-3xl"
-            }
+                ? " font-bold text-white md:text-3xl"
+                : "font-bold md:text-3xl"
+            `}
           >
-            {locationData?.results?.[0]?.country === searchName
+            {locationData?.results?.[0]?.country?.toLowerCase() === searchName.toLowerCase()
               ? searchName
               : `${locationData?.results?.[0]?.country} , ${searchName}`}
             {/* {locationData?.results?.[0]?.country} , {searchName} */}
           </h3>
 
           <p
-            className={`mt-2 ${modeSwitch ? "text-[#D8EBDD]" : "text-gray-200"}`}
+            className={`mt-1 ${modeSwitch ? "text-[#D8EBDD]" : "text-gray-200"}`}
           >
             {formattedDate}
           </p>
@@ -118,15 +119,16 @@ export default function CurrentWeather() {
 
         {/* <!-- Temperature --> */}
 
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-">
           <WeatherIcon
+            className="scale-75 sm:scale-90 md:scale-100"
             code={weatherData?.current?.weather_code}
             isDay={weatherData?.current?.is_day}
             size={100}
           />
 
           <div
-            className={`text-7xl font-semibold ${modeSwitch && "text-white"}`}
+            className={`text-5xl sm:text-6xl md:text-7xl font-semibold ${modeSwitch && "text-white"}`}
           >
             {formatTemperature(weatherData?.current?.temperature_2m, units)}
             {units === "C" ? "°" : "°ᶠ"}

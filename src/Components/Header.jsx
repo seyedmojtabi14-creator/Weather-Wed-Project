@@ -1,17 +1,19 @@
 import { useContext } from "react";
 import TitlePage from "./TitlePage";
-import { Sun, Moon } from "lucide-react";
+import { Sun , Moon , ChevronDown  } from "lucide-react";
 import { DataContext } from  "../context/DataContext";
+import { FaTemperatureHalf } from "react-icons/fa6";
+
 
 export default function Header() {
   let { showUnits, setShowUnits, modeSwitch, setModeSwitch, units, setUnits } =
     useContext(DataContext);
 
   return (
-    <div>
+    <div >
       {/* <!-- ================= HEADER ================= --> */}
 
-      <header className="flex items-center justify-between">
+      <header className="flex items-center justify-between ">
         {/* <!-- Logo --> */}
 
         <div className="flex items-center gap-3">
@@ -43,15 +45,22 @@ export default function Header() {
             onClick={() => {
               setShowUnits(!showUnits);
             }}
-            className={`flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition ${
+            className={`flex items-center gap- rounded-lg px-3 py-3 text-sm font-medium transition  ${
               modeSwitch
                 ? "bg-[#E7F3E9] text-[#1F5A32] hover:bg-[#D8EBDD]"
                 : "bg-[#292944] text-white hover:bg-[#343452]"
             }`}
+            title="Units"
           >
-            <span>⚙</span>
-            <span>Units</span>
-            <span>⌄</span>
+           
+              <FaTemperatureHalf className="h-6 w-6" />
+              
+           
+
+            
+
+             <ChevronDown size={18} />
+           
           </button>
 
           {showUnits && (
@@ -87,7 +96,10 @@ export default function Header() {
         </div>
       </header>
 
-      <TitlePage />
+      
     </div>
   );
 }
+
+
+<FaTemperatureHalf className="h-7 w-7 animate-[spin_0.5s_ease-in-out]" />
