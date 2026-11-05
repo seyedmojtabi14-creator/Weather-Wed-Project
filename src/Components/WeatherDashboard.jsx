@@ -97,10 +97,10 @@ export default function WeatherDashboard() {
               <CurrentWeather />
 
               {/* Weather Details */}
-              <WeatherDetails />
+              <ForecastDetails />
 
               {/* Daily Forecast */}
-              <ForecastDetails />
+              <WeatherDetails />
             </div>
 
             {/* ================= HOURLY FORECAST ================= */}

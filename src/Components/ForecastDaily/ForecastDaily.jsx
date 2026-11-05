@@ -12,7 +12,7 @@ export default function ForecastDaily() {
 
       {/* <!-- Forecast Cards --> */}
 
-      <div className="grid grid-cols-3 gap-4 sm:grid-cols-5 md:grid-cols-7">
+      <div className="grid grid-cols-3 gap-2 sm:grid-cols-5 md:grid-cols-7">
 
         {weatherData.daily.time.map((data, index) => {
           return (
